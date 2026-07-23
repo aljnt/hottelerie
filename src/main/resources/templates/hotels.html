@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hôtels disponibles - HotellbookingMaroc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background:
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)),
+                url("https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=1920&q=80") center center / cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        header a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+        .user-info {
+            font-size: 14px;
+            color: #fbbf24;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        main {
+            flex: 1;
+            padding: 40px 24px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(248, 250, 252, 0.98);
+            border-radius: 18px;
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: #0f172a; /* Force dark text inside cards */
+            transition: transform 0.2s;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .card-body {
+            padding: 16px 18px 18px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .card-city {
+            font-size: 13px;
+            color: #4b5563;
+            margin-bottom: 10px;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #4b5563;
+        }
+        .badge {
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #ecfdf5;
+            color: #166534;
+        }
+        .price {
+            font-weight: 700;
+            color: #111827;
+        }
+        .card-footer {
+            padding: 0 18px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-view {
+            padding: 8px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+        .btn-delete {
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #dc2626;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        @media (max-width: 960px) {
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <script>
+        function confirmDelete(name) {
+            if(confirm("Êtes-vous sûr de vouloir supprimer l'hôtel : " + name + " ?\n(Action réservée aux Administrateurs)")) {
+                alert("L'hôtel a été supprimé avec succès !");
+                // Ici on pourrait recharger la page, mais pour la démo l'alerte suffit
+            }
+        }
+
+        function addHotel() {
+            alert("Formulaire d'ajout d'hôtel (Simulation)\n\nL'administrateur peut ici ajouter un nouvel hôtel.");
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1>Hôtels <span style="background: #22c55e; font-size: 12px; padding: 4px 8px; border-radius: 4px;">V2.0 LIVE</span></h1>
+    
+    <nav style="display: flex; align-items: center;">
+        <!-- Affichage conditionnel du nom de l'utilisateur -->
+        <span th:if="${session.username}" class="user-info" th:text="'Bonjour, ' + ${session.username} + ' (' + ${session.userRole} + ')'"></span>
+
+        <a href="/">Accueil</a>
+        <a href="/hotels" style="font-weight: 600;">Hôtels</a>
+        <a href="/contact">Contact</a>
+        
+        <!-- Bouton Connexion / Déconnexion -->
+        <a th:if="${session.username == null}" href="/login" style="background: white; color: #333; padding: 5px 15px; border-radius: 20px;">Connexion</a>
+        <a th:if="${session.username != null}" href="/logout" style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px;">Déconnexion</a>
+    </nav>
+</header>
+<main>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <p class="subtitle" style="margin: 0; font-size: 18px; color: rgba(255, 255, 255, 0.9);">
+            Sélection d’hôtels d’exception au Maroc.
+        </p>
+        
+        <!-- Bouton Ajouter (UNIQUEMENT pour ADMIN) -->
+        <button th:if="${session.userRole == 'ADMIN'}" 
+                onclick="addHotel()"
+                style="background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+            <span>+</span> Ajouter un hôtel
+        </button>
+    </div>
+
+    <div class="grid">
+        <!-- Carte Hôtel -->
+        <div th:each="hotel : ${hotels}" class="card">
+            <div class="card-image" th:style="'background-image: url(' + ${hotel.images[0]} + ');'"></div>
+            <div class="card-body">
+                <div class="card-title" th:text="${hotel.name}">Nom</div>
+                <div class="card-city" th:text="${hotel.city}">Ville</div>
+                <div class="card-meta">
+                    <span class="badge" th:text="${hotel.badge}">Badge</span>
+                    <span class="price" th:text="'Dès ' + ${hotel.price} + ' / nuit'">Prix</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <!-- Bouton Voir (Pour tout le monde) -->
+                <a th:href="@{/hotels/details/{id}(id=${hotel.id})}" class="btn-view">Voir détails</a>
+                
+                <!-- Bouton Supprimer (UNIQUEMENT pour ADMIN) -->
+                <button th:if="${session.userRole == 'ADMIN'}" 
+                        class="btn-delete"
+                        th:data-name="${hotel.name}"
+                        onclick="confirmDelete(this.getAttribute('data-name'))">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - HotelBookingPro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background:
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)),
+                url("https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=1920&q=80") center center / cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .contact-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+        h2 {
+            font-size: 32px;
+            margin: 0 0 10px;
+            text-align: center;
+            font-weight: 700;
+        }
+        p.desc {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-left: 4px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: inherit;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #d97706;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #d97706;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #b45309;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(217, 119, 6, 0.3);
+        }
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #d1fae5;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>HotelBookingPro</h1>
+    <nav style="display: flex; gap: 20px;">
+        <a href="/" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 0.2s;">Accueil</a>
+        <a href="/hotels" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 0.2s;">Hôtels</a>
+        <a href="/contact" style="color: white; text-decoration: none; opacity: 1; font-weight: 600;">Contact</a>
+    </nav>
+</header>
+<main>
+    <div class="contact-container">
+        <h2>Contactez-nous</h2>
+        <p class="desc">Une question ? Une demande spéciale ? Notre équipe est à votre écoute.</p>
+        
+        <div th:if="${successMessage}" class="success-message">
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <form action="/contact" method="post" th:unless="${successMessage}">
+            <div class="form-group">
+                <label for="name">Votre nom</label>
+                <input type="text" id="name" name="name" required placeholder="Ex: Jean Dupont">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Votre email</label>
+                <input type="email" id="email" name="email" required placeholder="jean@exemple.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" required placeholder="Comment pouvons-nous vous aider ?"></textarea>
+            </div>
+            
+            <button type="submit">Envoyer le message</button>
+        </form>
+        
+        <div th:if="${successMessage}" style="text-align: center;">
+            <a href="/" style="color: white; text-decoration: underline;">Retour à l'accueil</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Maven / Java
+/target/
+*.class
+*.log
+*.tmp
+*.war
+*.jar
+
+# IDEs and editors
+/.idea/
+*.iml
+/.vscode/
+*.ipr
+*.iws
+/.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven wrapper
+/mvnw
+/mvnw.cmd
+
+# Other
+*.keystore

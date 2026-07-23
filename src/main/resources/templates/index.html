@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HotelBookingPro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background:
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)),
+                url("https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=1920&q=80") center center / cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1s ease-out;
+        }
+        h2 {
+            font-size: 56px;
+            margin: 0 0 24px;
+            line-height: 1.1;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        p.subtitle {
+            font-size: 20px;
+            margin: 0 0 40px;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-primary {
+            background: #d97706;
+            color: white;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.4);
+        }
+        .btn-primary:hover {
+            background: #b45309;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(217, 119, 6, 0.5);
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Section Info */
+        .info-section {
+            background: white;
+            color: #1e293b;
+            padding: 80px 20px;
+            width: 100%;
+        }
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .info-card {
+            padding: 30px;
+            border-radius: 20px;
+            background: #f8fafc;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        .info-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #d97706;
+        }
+        .info-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>HotelBookingPro</h1>
+    <nav style="display: flex; gap: 20px;">
+        <a href="/" style="color: white; text-decoration: none; opacity: 0.8;">Accueil</a>
+        <a href="/hotels" style="color: white; text-decoration: none; opacity: 0.8;">Hôtels</a>
+        <a href="/contact" style="color: white; text-decoration: none; opacity: 0.8;">Contact</a>
+    </nav>
+</header>
+<main>
+    <div class="hero-content">
+        <h2>Découvrez la Magie du Maroc</h2>
+        <p class="subtitle">
+            Plongez au cœur de l'élégance et de l'authenticité. Hotel Booking Maroc vous ouvre les portes des plus beaux séjours du Royaume.
+        </p>
+        <div class="actions">
+            <a href="/reservations/new" class="btn btn-primary">
+                Réserver maintenant
+            </a>
+            <a href="/hotels" class="btn btn-ghost">
+                Explorer nos hôtels
+            </a>
+        </div>
+    </div>
+</main>
+
+<section class="info-section">
+    <div class="info-container">
+        <div class="info-card">
+            <h3>Sélection Exclusive</h3>
+            <p>Nous avons parcouru le Maroc pour sélectionner uniquement les établissements offrant une expérience inoubliable, du riad traditionnel au resort de luxe.</p>
+        </div>
+        <div class="info-card">
+            <h3>Service Premium</h3>
+            <p>Notre équipe est à votre disposition 24/7 pour assurer que votre séjour se déroule à la perfection. Votre confort est notre priorité absolue.</p>
+        </div>
+        <div class="info-card">
+            <h3>Meilleurs Tarifs</h3>
+            <p>Profitez de tarifs négociés et d'offres exclusives disponibles uniquement sur notre plateforme. Le luxe devient accessible.</p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
